@@ -1,7 +1,7 @@
 import math
 from collections import Counter
 from array import array
-import vignere
+import vigenere
 import sys
 import itertools
 
