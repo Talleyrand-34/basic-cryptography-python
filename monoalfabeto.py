@@ -153,12 +153,12 @@ def main():
         plaintext = read_file(args.e)
         ciphertext = playfair_encrypt(plaintext, key)
         print("Encrypted text:", ciphertext)
-        write_output(ciphertext, "enc")
+        #write_output(ciphertext, "enc")
     elif args.d:
         ciphertext = read_file(args.d)
         plaintext = playfair_decrypt(ciphertext, key)
         print("Decrypted text:", plaintext)
-        write_output(plaintext, "dec")
+        #write_output(plaintext, "dec")
     else:
         choice = input("Enter 'e' for encryption or 'd' for decryption (q to quit) or 'help' for help: ")
 
