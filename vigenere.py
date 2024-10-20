@@ -56,13 +56,13 @@ def print_help():
       1. Input your plaintext (uppercase letters only).
       2. The program will encrypt your message using the specified key.
       3. The output will be your encrypted text.
-      4. The encrypted text will be saved to a file named 'enc-out-N.txt', where N is an auto-incrementing number.
+      4. (Optional file mode)The encrypted text will be saved to a file named 'enc-out-N.txt', where N is an auto-incrementing number.
 
     Decryption Process:
       1. Input your ciphertext (uppercase letters only).
       2. The program will decrypt your message using the same key used for encryption.
       3. The output will be your decrypted text.
-      4. The decrypted text will be saved to a file named 'dec-out-N.txt', where N is an auto-incrementing number.
+      4. (Optional file mode)The decrypted text will be saved to a file named 'dec-out-N.txt', where N is an auto-incrementing number.
 
     Note: 
       - The key should consist of uppercase letters.
