@@ -2,6 +2,8 @@
 
 import argparse
 import sys
+import time
+import sys
 
 # RC4 implementation (unchanged)
 state = [None] * 256
@@ -26,7 +28,21 @@ def byteGenerator():
     return state[(state[p] + state[q]) % 256]
 
 def encrypt(inputString):
-    return [ord(p) ^ byteGenerator() for p in inputString]
+    encrypted = []
+    output = list(inputString)  
+    
+    for i, p in enumerate(inputString):
+        byte = ord(p) ^ byteGenerator()
+        encrypted.append(byte)
+
+        output[i] = f'{byte:02x}'
+        
+        sys.stdout.write('\r' + ''.join(output))  
+        sys.stdout.flush()
+        time.sleep(0.5) #change value to inc/decr speed
+    
+    sys.stdout.write('\n') 
+    return encrypted
 
 def decrypt(inputByteList):
     return "".join([chr(c ^ byteGenerator()) for c in inputByteList])
