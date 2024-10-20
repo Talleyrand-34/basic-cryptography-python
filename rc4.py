@@ -3,9 +3,8 @@
 import argparse
 import sys
 import time
-import sys
 
-# RC4 implementation (unchanged)
+# RC4 implementation
 state = [None] * 256
 p = q = None
 
@@ -14,10 +13,7 @@ def setKey(key):
     state = [n for n in range(256)]
     p = q = j = 0
     for i in range(256):
-        if len(key) > 0:
-            j = (j + state[i] + key[i % len(key)]) % 256
-        else:
-            j = (j + state[i]) % 256
+        j = (j + state[i] + key[i % len(key)]) % 256
         state[i], state[j] = state[j], state[i]
 
 def byteGenerator():
@@ -29,19 +25,22 @@ def byteGenerator():
 
 def encrypt(inputString):
     encrypted = []
-    output = list(inputString)  
     
-    for i, p in enumerate(inputString):
-        byte = ord(p) ^ byteGenerator()
-        encrypted.append(byte)
-
-        output[i] = f'{byte:02x}'
+    for char in inputString:
+        byte = ord(char)
+        keystream_byte = byteGenerator()
+        encrypted_byte = byte ^ keystream_byte
         
-        sys.stdout.write('\r' + ''.join(output))  
-        sys.stdout.flush()
-        time.sleep(0.5) #change value to inc/decr speed
+        # Displaying the required information
+        print(f"Character: '{char}' | ASCII: {byte} | Binary: {byte:08b}")
+        print(f"Keystream: {keystream_byte} | Binary: {keystream_byte:08b}")
+        print(f"Encrypted Byte: {encrypted_byte} | Binary: {encrypted_byte:08b} | Hex: {encrypted_byte:02x}\n")
+        
+        encrypted.append(encrypted_byte)
+        
+        # Simulate typing effect
+        time.sleep(0.5)  # Adjust speed here
     
-    sys.stdout.write('\n') 
     return encrypted
 
 def decrypt(inputByteList):
@@ -49,31 +48,45 @@ def decrypt(inputByteList):
 
 # New main function with CLI options
 def main():
-    parser = argparse.ArgumentParser(description="RC4 encryption/decryption tool")
-    parser.add_argument("-k", "--key", required=True, help="Encryption/decryption key")
-    parser.add_argument("-f", "--file", help="Input file (if not specified, read from stdin)")
+    parser = argparse.ArgumentParser(description="RC4 encryption tool")
+    parser.add_argument("-k", "--key", required=True, help="Hexadecimal encryption key")
     parser.add_argument("-d", "--decrypt", action="store_true", help="Decrypt mode (default is encrypt)")
     args = parser.parse_args()
 
+    # Convert hex key to bytes
+    try:
+        key_bytes = bytes.fromhex(args.key)
+    except ValueError as e:
+        print(f"Error decoding key: {e}")
+        sys.exit(1)
+
     # Set the key
-    setKey([ord(c) for c in args.key])
+    setKey(key_bytes)
 
-    # Read input
-    if args.file:
-        with open(args.file, 'r') as f:
-            input_data = f.read()
-    else:
-        input_data = sys.stdin.read()
+    print("RC4 Encryption Tool")
+    print("Type your text to encrypt (type 'exit' to quit):")
 
-    # Process data
+    #if -d is present choose between encrypting or decrypt
     if args.decrypt:
         # Assuming input is hex-encoded for decryption
+        # input_data = sys.stdin.read()
+        input_data = input("Input hex-encoded text to decrypt: ")
         input_bytes = bytes.fromhex(input_data.strip())
         result = decrypt(input_bytes)
         print(result)
     else:
-        result = encrypt(input_data)
-        print(''.join(f'{b:02x}' for b in result))
+        while True:
+            input_data = input("Input: ")
+            
+            if input_data.lower() == 'exit':
+                print("Exiting the program.")
+                break
+            
+            encrypted_result = encrypt(input_data)
+            
+            # Final output of encrypted text in hex format after all characters are processed
+            print("Encrypted text (hex):", ''.join(f'{b:02x}' for b in encrypted_result))
+
 
 if __name__ == '__main__':
     main()
