@@ -41,7 +41,13 @@ def print_help():
     
     This program allows you to encrypt and decrypt messages using the Vigenère cipher.
     
-    Commands:
+    Parameters:
+      - Enter '-e' to encrypt a message with file input.
+      - Enter '-d' to decrypt a message with file input.
+      - Enter '-E' to encrypt a message with args input.
+      - Enter '-D' to decrypt a message with args input.
+      - Enter '--key' specify a key to use.
+    Commands interactive mode:
       - Enter 'e' to encrypt a message.
       - Enter 'd' to decrypt a message.
       - Enter 'q' to quit the program.

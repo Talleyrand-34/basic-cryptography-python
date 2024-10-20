@@ -66,7 +66,13 @@ def print_help():
     
     This program allows you to encrypt and decrypt messages using the Playfair cipher.
     
-    Commands:
+    Parameters:
+      - Enter '-e' to encrypt a message with file input.
+      - Enter '-d' to decrypt a message with file input.
+      - Enter '-E' to encrypt a message with args input.
+      - Enter '-D' to decrypt a message with args input.
+      - Enter '--key' specify a key to use.
+    Commands interactive mode:
       - Enter 'e' to encrypt a message.
       - Enter 'd' to decrypt a message.
       - Enter 'q' to quit the program.
@@ -76,20 +82,20 @@ def print_help():
       2. The program will encrypt your message using the specified key.
       3. If there are duplicate letters in a pair, an 'X' will be added.
       4. The output will be your encrypted text.
-      5. The encrypted text will be saved to a file named 'enc-out-N.txt', where N is an auto-incrementing number.
+      5. (Optional file mode) The encrypted text will be saved to a file named 'enc-out-N.txt', where N is an auto-incrementing number.
 
     Decryption Process:
       1. Input your ciphertext (uppercase letters only).
       2. The program will decrypt your message using the same key used for encryption.
       3. The output will be your decrypted text.
-      4. The decrypted text will be saved to a file named 'dec-out-N.txt', where N is an auto-incrementing number.
+      4. (Optional file mode) The decrypted text will be saved to a file named 'dec-out-N.txt', where N is an auto-incrementing number.
 
     Note: 
       - The key should consist of uppercase letters and will be used to create a Playfair matrix.
       - Each encryption or decryption operation will create a new output file with an incremented number.
       - The counter for file naming is stored in a local 'counter.json' file.
     
-    Example Key: "MONARCHY"
+    Example Key: "MONAR"
     
     Enjoy using the Playfair cipher!
     """
