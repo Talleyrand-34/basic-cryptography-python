@@ -25,8 +25,9 @@ def byteGenerator():
 
 def encrypt(inputString):
     encrypted = []
+    output = list(inputString)  
     
-    for char in inputString:
+    for i, char in enumerate(inputString):
         byte = ord(char)
         keystream_byte = byteGenerator()
         encrypted_byte = byte ^ keystream_byte
@@ -37,12 +38,19 @@ def encrypt(inputString):
         print(f"Encrypted Byte: {encrypted_byte} | Binary: {encrypted_byte:08b} | Hex: {encrypted_byte:02x}\n")
         
         encrypted.append(encrypted_byte)
+
+        # Update the output list to show the current encrypted character in hex
+        output[i] = f'{encrypted_byte:02x}'
+        
+        # Display the current state of the output
+        sys.stdout.write('\r' + ''.join(output))  
+        sys.stdout.flush()
         
         # Simulate typing effect
         time.sleep(0.5)  # Adjust speed here
     
+    sys.stdout.write('\n') 
     return encrypted
-
 def decrypt(inputByteList):
     return "".join([chr(c ^ byteGenerator()) for c in inputByteList])
 
@@ -75,6 +83,8 @@ def main():
         result = decrypt(input_bytes)
         print(result)
     else:
+        final_encrypted = []  # Initialize as a list to store multiple encrypted results
+
         while True:
             input_data = input("Input: ")
             
@@ -85,7 +95,17 @@ def main():
             encrypted_result = encrypt(input_data)
             
             # Final output of encrypted text in hex format after all characters are processed
-            print("Encrypted text (hex):", ''.join(f'{b:02x}' for b in encrypted_result))
+            hex_output = ''.join(f'{b:02x}' for b in encrypted_result)
+            print("Encrypted text (hex):", hex_output)
+            
+            final_encrypted.append(hex_output)  # Append the hex string to the list
+
+        # Print all encrypted results at once after exiting
+        print("All Encrypted Results:")
+        print(final_encrypted)
+        all_encrypted_string = ''.join(final_encrypted)
+        print("All Encrypted Results:", all_encrypted_string)
+
 
 
 if __name__ == '__main__':
