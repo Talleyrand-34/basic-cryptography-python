@@ -31,7 +31,7 @@ def encontrar_claves_probables(recuento_letras):
     alfabeto_por_aparicion = sorted(range(len(recuento_letras)), key=lambda k: recuento_letras[k], reverse=True)
     
     # Letras más comunes en español (por orden de frecuencia)
-    letras_comunes = 'EAOLSNDRIUTCMPBHQYGJFZVXKW'
+    letras_comunes = 'EAOSRNIDLCTUMPBGVYQHFZJXKW'
     
     claves_probables = []
     for i in range(min(10, len(alfabeto_por_aparicion))):
