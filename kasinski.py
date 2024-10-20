@@ -130,7 +130,7 @@ def ataque(fichero):
     for i, clave in enumerate(claves_candidatas[:10], 1):
         print(f"{i}. {clave}")
         # print(vigenere.descifrar(texto, clave))
-        print(vignere.vigenere_decrypt(texto,clave))
+        print(vigenere.vigenere_decrypt(texto,clave))
 
 if len(sys.argv)!=2 or (len(sys.argv)==2 and sys.argv[1]=="--help"):
     print("Sintaxis: "+sys.argv[0]+" fichero.txt")
